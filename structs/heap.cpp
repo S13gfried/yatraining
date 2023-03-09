@@ -13,7 +13,7 @@ std::vector<type> inputVector(int length)
     for(int index = 0; index < length; index++)
     {
         std::cin >> buffer;
-        res.push_back(buffer);
+        res[index] = buffer;
     }
 
     return res;
@@ -32,7 +32,7 @@ class Heap
 {
     protected:
     std::vector<type> body;
-    metrictype metric(type arg);
+    metrictype (*metric)(type arg);
 
     int getParent(int index) {return (index - 1) / 2; }
     int getChild(int index) {return index * 2 + 1; } //second child has index getChild() + 1
@@ -42,7 +42,7 @@ class Heap
     {
         while((index != 0) && (metric(body[getParent(index)]) < metric(body[index])))
         {
-            swap(&body[getParent(index)], &body[index]);
+            swap(body[getParent(index)], body[index]);
             index = getParent(index);
         } 
         return index;
@@ -80,8 +80,8 @@ class Heap
 
     public:
 
-    #define MAX [](type x){return (metrictype)x;}
-    #define MIN [](type x){return -(metrictype)x;}
+    static min(type x) {return -(metrictype)x}
+    static max(type x) {return (metrictype)x}
 
     template<typename iterable>
     Heap(iterable source = NULL, int size = 0, metrictype nmetric(type arg) = MAX)
@@ -90,7 +90,7 @@ class Heap
         metric = &nmetric;
 
         for(int index = 0; index < size; index++)
-            push((type)source[index]);
+            push((source[index]);
     }
 
     void push(type item)
