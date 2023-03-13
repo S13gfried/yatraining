@@ -1,4 +1,3 @@
-# >mfw contest returns runtime error
 import numpy as np
 height, width, queries = (int(word) for word in input().split())
 
