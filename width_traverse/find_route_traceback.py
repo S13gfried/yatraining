@@ -51,3 +51,4 @@ print(traverse_width(visited, lambda x: connections[x], destination, source))
 
 if visited[destination] > 0:
     print(" ".join(str(item) for item in path_trace_back_unoriented(visited, lambda x: connections[x], destination)))
+
